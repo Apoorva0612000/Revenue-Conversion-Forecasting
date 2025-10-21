@@ -225,6 +225,7 @@ def fetch_quotation_details(quotation_id):
     q['avg_talktime'] = q.groupby('quotations_id')['talktime'].transform('mean')
 
     q["avg_talktime"] = q["avg_talktime"] / 60
+
     # q["num_calls"] = q["num_calls"].fillna(0)
     # q["avg_talktime"] = q["avg_talktime"].fillna(0)
 
@@ -263,6 +264,8 @@ if st.button("🔎 Fetch and Predict"):
                     st.warning(f"⚠️ This quotation has been active for over {days_active} days without payment.")
                 else:
                     if 'model' in st.session_state and 'scaler' in st.session_state:
+                        q['num_calls'] = q['num_calls'].fillna(0)
+                        q['avg_talktime'] = q['avg_talktime'].fillna(0)
                         X_new = q[[
                             "quotations_total_quotation_amount",
                             "Discount_Percentage",
