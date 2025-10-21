@@ -38,7 +38,7 @@ def get_ssh_tunnel():
         ssh_username=os.getenv('SSH_USER'),
         ssh_password=os.getenv('SSH_PASSWORD'),
         remote_bind_address=(os.getenv('JUMPBOX_IP'), int(os.getenv('PORT'))),
-        local_bind_address=('127.0.0.1', 0)
+        local_bind_address=(os.getenv('DB_HOST'), int(os.getenv('DB_PORT')))
     )
     tunnel.start()
     return tunnel
